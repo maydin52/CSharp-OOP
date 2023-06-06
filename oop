@@ -1,0 +1,120 @@
+//OOP(Object Oriented Programming)
+//1979 Bjarne Stroustrup!!! (C with Classes)
+//1982 C++
+
+//1-Sıralı Prog. Dilleri
+//2-Fonksiyonel Prog. Dilleri
+//3-OOP Dilleri
+//Component !!!
+
+//OOP olmanın özellikleri
+//1-Encapsulation(Kapsulleme, Izole Etmek)
+//Access Modifiers
+//2-Inheritance(Kalıtım,Miras,Türetme)
+//C# programlama dili çoklu kalıtımı desteklemez...
+
+//3-Polymorphism(Çok şekillik,çok biçimlilik)
+// Aynı isimli yapıların(metod, property) tureyen farklı siniflarda farklı şekilde çalışmasına denir...
+//4-Data Abstraction (Veri soyutlama)
+
+//Class  => Sınıf (Sablon)
+//Object => Nesne
+
+using ConsoleApp1;
+
+//Instance(Somut ornegini alma)
+Personel personel = new Personel();
+
+//Gizli Kalıtım...
+//C# programlama dilinde tum sınıflar Object sınıfından turetilmistir...
+
+Urun urun = new Urun ();
+
+//Ensapsulation der ki; Bile sınıf içerisindeki değişkenler dışarıya kapalı olmalıdır...
+//DIKKAT:Değişken için söylüyor... 
+
+//ID değişkeni private oldugundan kullanılamaz....
+//personel.perID = 1;
+//Console.WriteLine( personel.perID);
+
+personel.set____ID(123);
+Console.WriteLine(personel.get____ID());
+
+
+string strMesaj = "Merhaba";
+
+
+personel.Ad = "Cevdet";
+Console.WriteLine(personel.Ad);
+
+personel.Maas = -5000;
+
+------------------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    internal class Personel
+    {
+
+        //Class seviyesinde varsayılan Erişim Belirleyicisi private dır...
+
+        //Access Modifiers => private,public
+        private int perID;
+
+        public int get____ID()
+        { 
+            return perID;
+        }
+
+        public void set____ID(int ID)
+        {
+            perID = ID;
+        }
+
+        //Property
+        //1-Property(C# 3.0 oncesi...)
+        //Mutlaka özelliğin kullanacağı değişken önceden tanımlanmalı...
+        //2-Auto Property
+        //3-Semi-auto property
+
+        string ad;
+
+        public string Ad
+        {
+            get { return ad; }
+            set { ad = value; }
+        }
+
+        //Auto property
+        //Değişken tanımlamaya gerek yok...
+        public double Maas{ get; set; }
+
+    }
+}
+
+--------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    internal class Urun
+    {
+        //Class Members
+        //variables
+        //methods
+        //property
+    }
+}
+
+-----------------------------------------
