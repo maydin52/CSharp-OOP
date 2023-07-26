@@ -16,19 +16,79 @@ base:
   2. Kullanım
     bir ust sınıfın ilgili yapılarına erişmek için kullanılır...
 
-
-
-
+//---------------------------------------------------------------------------------------------
 
 internal class Entity
     {
         public string HESKodu { get; set; }
     }
 
+internal class Kisi:Entity
+    {
+        public int ID { get; set; }
+        public string Ad { get; set; }
+        public string Soyad { get; set; }
+    }
+
+internal class Insan
+    {
+    }
+
+
+//C# multiple inheritance desteklemez...
+    internal class Musteri:Kisi//,Insan
+    {
+        public double BorcAlacakDurumu { get; set; }
+    }
+
+internal class Personel:Kisi
+    {
+        public double Maas { get; set; }
+    }
 
 
 
+Personel personel = new Personel();
+Musteri musteri = new Musteri();
 
+
+//---------------------------------------------------------------------------------------------
+
+internal class Personel
+    {
+        protected void Islem() { 
+        
+        }
+
+        private void Deneme()
+        { 
+        
+        }
+
+        public void Emened()
+        { 
+        
+        }
+
+    }
+
+
+internal class Mudur:Personel
+    {
+
+        public Mudur()
+        {
+            
+        }
+
+
+//Access Modifiers
+//1-public
+//2-private
+//3-protected
+
+Mudur mudur = new Mudur();
+Personel personel = new Personel();
 
 //---------------------------------------------------------------------------------------------
 
