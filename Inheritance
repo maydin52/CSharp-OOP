@@ -1,7 +1,41 @@
+Inheritance(Kalıtım, Miras, Türetme)
+
+*** C# tum nesneler Object sınıfından türetilmiştir...
+*** C# programlama dilinde multiple-inheritance yoktur...
+
+*** Uygulama geliştirme hızını artırır...
+*** Sınıfları gerektiğinde atası tipinden taşımaya olanak sağlar...
+
+
+protected Access Modifiers:
+  Türeyen sınıflarda kullanılır... Dişarıdan erişilemez...
+
+base:
+  1. Kullanım...
+  Türetmede; paramerik ctor lar kullanılırsa türeyen sınıftan, ust sınıfın ctor'una ilgili degeri gondermek(aktarmak) için kullanılır... 
+  2. Kullanım
+    bir ust sınıfın ilgili yapılarına erişmek için kullanılır...
+
+
+
+
+
+internal class Entity
+    {
+        public string HESKodu { get; set; }
+    }
+
+
+
+
+
 
 //---------------------------------------------------------------------------------------------
 
-//Örnek 1:
+//Örnek 1: 
+//1-Daire, Silindir, Koni nesnelerinin alan, hacim verilerinin hesaplayan kodu miras kullanarak yazınız?
+
+
 
 internal class Daire
     {
@@ -53,6 +87,20 @@ Console.WriteLine(koni.KoniHacimHesapla());
 //---------------------------------------------------------------------------------------------
 
 //Örnek 2:
+//2-Bir satis firmasında 2 tip personel calismaktadır. Tam zamanlı ve yarı zamanlı olmak uzere;
+Tam zamanlı calisanların ucreti; taban ucret + prim şeklinde hesaplanmaktadır...
+Prim ise
+   100000 den kucukse yuzde 1
+   100000- 250000 arası yuzde 2
+   250000 den buyukse yuzde 3
+
+Yari zamanlı calisan personelin maasi ise; (calistigi saat * saat ucreti) + prim
+
+prim ise satısın yuzde 1 olarak hesaplanacaktır...
+
+Bu kodu OOP miras kullanarak yazınız?
+
+
 
 internal class Personel
     {
