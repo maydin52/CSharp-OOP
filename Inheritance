@@ -51,6 +51,49 @@ internal class Personel:Kisi
 Personel personel = new Personel();
 Musteri musteri = new Musteri();
 
+//---------------------------------------------------------------------------------------------
+
+internal class Kisi
+    {
+        public Kisi(int id)
+        {
+            Console.WriteLine("Kisi nesnesi olustu...");
+
+        }
+    }
+
+internal class Musteri:Kisi
+    {
+        public Musteri(int id, double cari):base(id)
+        {
+            Console.WriteLine("Musteri sinifi olustu...");
+
+        }
+    }
+
+internal class VIP_Musteri:Musteri
+    {
+        private string v;
+
+        public VIP_Musteri(string v)
+        {
+            this.v = v;
+        }
+
+        public VIP_Musteri(int id, double cari,string ozelKosullar):base(id,cari)
+        {
+            Console.WriteLine("Ne musteri be... VIP olustu...");
+        }
+    }
+
+
+//ctor ların mirasta kullanımı....
+
+VIP_Musteri vip = new VIP_Musteri("cevdet"); 
+
+//Musteri musteri = new Musteri();
+
+//Kisi kisi = new Kisi();
 
 //---------------------------------------------------------------------------------------------
 
@@ -89,6 +132,42 @@ internal class Mudur:Personel
 
 Mudur mudur = new Mudur();
 Personel personel = new Personel();
+//---------------------------------------------------------------------------------------------
+internal class Kisi
+    {
+        public int ID { get; set; }
+        public string Ad { get; set; }
+        public string Soyad { get; set; }
+    }
+
+internal class Musteri:Kisi
+    {
+        public double BorcAlacak { get; set; }
+    }
+
+internal class Personel:Kisi
+    {
+        public double Maas { get; set; }
+
+    }
+
+//Miras konusunda; türeyen sınıfları atası tipinden tutmak...
+
+using Cns_OOP_Inheritance_IV;
+
+Personel personel = new Personel();
+Musteri musteri = new Musteri();
+
+Kisi kisi1 = new Personel();
+Kisi kisi2 = new Musteri();
+
+((Personel)kisi1).Maas = 333;
+((Musteri)kisi2).BorcAlacak = 2223;
+
+
+Kisi kisi3 = new Personel();
+
+((Personel)kisi3).Maas = 222;
 
 //---------------------------------------------------------------------------------------------
 
@@ -226,5 +305,3 @@ Console.WriteLine(yz.NetMaas);
 //double dbl = 200_000.88;
 
 //---------------------------------------------------------------------------------------------
-
-//Örnek 3:
