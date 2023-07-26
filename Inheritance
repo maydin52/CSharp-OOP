@@ -1,0 +1,122 @@
+
+//---------------------------------------------------------------------------------------------
+
+//Örnek 1:
+
+internal class Daire
+    {
+        public double r  { get; set; }
+
+        public double DaireAlanHesapla()
+        { 
+            return Math.PI *r*r; 
+        }
+    }
+
+internal class Silindir:Daire
+    {
+        public double h { get; set; }
+
+        public double SilindirHacimHesapla()
+        {
+            //return  Math.PI *r*r*h; 
+            return DaireAlanHesapla() * h;
+        }
+    }
+
+internal class Koni:Silindir
+    {
+        public double KoniHacimHesapla()
+        {
+            return base.SilindirHacimHesapla() * 0.33333;
+        }
+    }
+
+//Soru 1:Daire, Silindir, Koni...
+
+using ConsoleApp1;
+
+Daire daire = new Daire();
+daire.r = 3;
+Console.WriteLine(daire.DaireAlanHesapla());
+
+Silindir silindir = new Silindir();
+silindir.r = 3;
+silindir.h = 10;
+Console.WriteLine(silindir.SilindirHacimHesapla());
+
+Koni koni = new Koni();
+koni.r = 3;
+koni.h = 10;
+Console.WriteLine(koni.KoniHacimHesapla());
+
+//---------------------------------------------------------------------------------------------
+
+//Örnek 2:
+
+internal class Personel
+    {
+        public int ID { get; set; }
+        public  string Ad { get; set; }
+        public  string Soyad { get; set; }
+
+        public double AylikCiro { get; set; }
+        public double NetMaas { get; set; }
+    }
+
+ internal class TamZamanli:Personel
+    {
+        public double TabanUcret { get; set; }
+
+        public void MaasHesapla()
+        {
+            double prim;
+            if (AylikCiro < 100000)
+                prim = AylikCiro * 0.01;
+            else if (AylikCiro >= 100000 && AylikCiro < 250000)
+                prim = AylikCiro * 0.02;
+            else
+                prim = AylikCiro * 0.03;
+
+            NetMaas =  TabanUcret  + prim;
+        }
+
+    }
+
+internal class YariZamanli:Personel
+    {
+        public int CalistigiSaat { get; set; }
+        public double  SaatlikUcreti { get; set; }
+
+        public void MaasHesapla()
+        {
+            NetMaas = (CalistigiSaat * SaatlikUcreti) + (AylikCiro * 0.01);
+        }
+    }
+
+//Soru2:Tam zamanlı, yari zamanli... 
+
+TamZamanli tz = new TamZamanli();
+tz.ID = 1;
+tz.Ad = "Cevdet";
+tz.Soyad = "Korkmaz";
+tz.AylikCiro = 200_000;
+tz.TabanUcret = 11500;
+tz.MaasHesapla();
+Console.WriteLine(tz.NetMaas);
+
+YariZamanli yz = new YariZamanli();
+yz.ID = 2;
+yz.Ad = "Selami";
+yz.Soyad = "Dursun";
+yz.CalistigiSaat = 10;
+yz.SaatlikUcreti = 200;
+yz.AylikCiro = 300_000;
+yz.MaasHesapla();
+Console.WriteLine(yz.NetMaas);
+
+//double dbl = 200_000.88;
+
+//---------------------------------------------------------------------------------------------
+
+//Örnek 3:
