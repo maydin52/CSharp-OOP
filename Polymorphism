@@ -1,0 +1,183 @@
+//Aynı isimli bir yapının; farklı sınıuflarda farklı şekillerde çalışmasına denir...
+//Polymorphism; özel bir problemin çözümüdür...
+
+Özel bir problemin çözümüdür.
+Tüm oop destekli dillerde var.
+Bir prog dilinin oop olabilmesi için encapsulation, polymorphism, inheritance
+Bazı mülakat yapanlara göre 4 olabilir.
+
+Türeyen sınıflarda aynı isimli bir yapının (metot, prop vs) farklı sınıflarda farklı şekillerde çalışmasına denir. 
+İki class arasında kalıtım olmasada objectten gelen gizli kalıtım olduğundan çalıştı.
+
+Asker base sınıfında Saldır metodu çalıştığında süvari ve okçu metodu farklı çalışacaktır. Problem çözümü bu. Yoksa şart cümlelerinde boğulurduk.
+CRUD sınıfı diğer classlara miras verecek. Kaydet metodunu virtual yapıp diğer tüm classlara override ederek farklı ekillerde kayıt yapabilriiz.
+
+//-----------------------------------------------------------------------------------------------------------------------------
+
+// Örnek 1:
+
+internal class Araba
+    {
+        public virtual void Sur() 
+        {
+            Console.WriteLine("Araba Sur...");
+        }
+    }
+
+
+internal class Ferrari:Araba
+    {
+        public override void Sur()
+        {
+            Console.WriteLine("Ferrari Sur...");
+        }
+    }
+
+
+internal class Serce:Araba
+    {
+        public override void Sur()
+        {
+            Console.WriteLine("Serce Sur...");
+        }
+    }
+
+
+// DİKKAT : Metottaki yapılar ata sınıfta virtual işaretlenir, türeyen sınıflarda tüm yapılarda override ile kullanılır. 
+// Class içinde override yazıp sağ tıkladığında uygun olan metotları görebilirsin.
+
+// Bu senaryoda atası tipinden metoda ulaşamazsın. Problem Bu.
+
+Araba araba = new Araba();
+Ferrari ferrari = new Ferrari();
+Serce serce = new Serce();
+
+araba.Sur();
+ferrari.Sur();  
+serce.Sur();
+
+
+// Çözüm senaryosu bu.
+
+Araba araba2 = new Araba();
+Araba ferrari2 = new Ferrari();
+Araba serce2 = new Serce();
+
+araba2.Sur();
+ferrari2.Sur();
+serce2.Sur();
+
+//-----------------------------------------------------------------------------------------------------------------------------
+
+// Örnek 2:
+
+1. Yol : Class lar içerisinde ToString metodunu override etmek.
+2. Yol : Foreach ile her tip için döngüne kod ekleme yapmamız gerekirdi.
+
+1. Yol daha uygun yol.
+
+internal class Musteri
+    {
+        public int MusteriID { get; set; }
+        public string Ad { get; set; }
+        public string Adres { get; set; }
+
+        public override string ToString()
+        {
+            return $"{MusteriID} {Ad} {Adres}";
+        }
+    }
+
+internal class Urun
+    {
+        public int UrunID { get; set; }
+        public string UrunAdi { get; set; }
+        public double Fiyat { get; set; }
+
+        public override string ToString()
+        {
+            return $"{UrunID} {UrunAdi} {Fiyat}";
+        }
+    }
+
+
+Musteri musteri = new Musteri() { MusteriID=112, Ad="Cevdet Korkmaz", Adres="Kadıkoy" };
+
+Urun urun = new Urun() { UrunID = 2334, UrunAdi = "Defter", Fiyat = 25 };
+
+Console.WriteLine(musteri); //?
+Console.WriteLine(urun);    //?
+
+Console.WriteLine(musteri.MusteriID + " " + musteri.Ad + " " + musteri.Adres );
+
+ArrayList liste = new ArrayList();
+liste.Add(urun);
+liste.Add(musteri);
+
+//Bu şekilde çalışmaz...
+//listenin içindekileri ekrana yaz...
+foreach(Object item in liste)
+    Console.WriteLine(item);
+
+2. Yolun kodu;
+//??? Neden Sinif isimlerini yazdı...
+//foreach (Object item in liste)
+//{
+//    if (item is Musteri)
+//    {
+//        musteri = (Musteri)item;
+//        Console.WriteLine($"{musteri.MusteriID} {musteri.Ad} {musteri.Adres}");
+//    }
+//    if (item is Urun)
+//    {
+//        urun = (Urun)item;
+//        Console.WriteLine($"{urun.UrunID} {urun.UrunAdi} {urun.Fiyat}");
+//    }
+
+//}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+
+// Örnek 3:
+
+internal class Daire
+    {
+        public double r { get; set; }
+
+        public virtual double Hesapla()
+        { 
+            return Math.PI * r*r; 
+        }
+    }
+
+internal class Silindir:Daire
+    {
+        public double h { get; set; }
+
+        public override  double Hesapla()
+        {
+            return base.Hesapla() * h;
+        }
+    }
+
+internal class Koni:Silindir
+    {
+        public override double Hesapla()
+        {
+            return base.Hesapla() * 0.333333;
+        }
+    }
+
+//Soru: Daire, Silindir, Koni polymorphism kullanarak yazınız?
+
+Daire[] sekiller = new Daire[3];
+
+sekiller[0] = new Daire() { r=3 };
+sekiller[1] = new Silindir() { r=3, h=10 };
+sekiller[2] = new Koni() { r = 3, h = 10 };
+
+foreach(Daire sekil  in sekiller)
+    Console.WriteLine(sekil.Hesapla().ToString("F2"));
+
+// F2 küsüratı iki karakter yapmak için.
+
