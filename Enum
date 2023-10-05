@@ -1,0 +1,70 @@
+//Enum: Tam sayı degerler ile string degerlerin eşleştirilmesidir....
+
+Tam sayı degerler ile string degerlerin eşleştirilmesidir....
+
+Asla değişmeyecek şeyler enum olarak tanımlanmalıdır.
+Değişmeyecek yapılar enum haline getirilir.
+İşi daha modüler taşınabilir hale getirmek için kullanılr.
+enum sıfırdan başlar ve n e doğru gider. İstersek revize edebiliriz.
+
+Enumlar; bir metodun parametresi olabilir, bir classın içerisindeki property nin tipi olabilir, bir metodun return type ı olabilir, 
+
+
+
+//Neden ???
+//Console.ForegroundColor = ConsoleColor.Red;
+//Console.WriteLine("Merhaba");
+//Console.ForegroundColor = ConsoleColor.Magenta;
+//Console.WriteLine("Merhaba");
+//Console.ForegroundColor = ConsoleColor.Blue;
+//Console.WriteLine("Merhaba");
+//Console.ForegroundColor = ConsoleColor.Gray;
+//Console.WriteLine("Merhaba");
+//Console.ForegroundColor = ConsoleColor.Cyan;
+//Console.WriteLine("Merhaba");
+//Console.ForegroundColor = ConsoleColor.DarkGreen;
+//Console.WriteLine("Merhaba");
+//Console.ForegroundColor = ConsoleColor.DarkRed;
+//Console.WriteLine("Merhaba");
+
+for (int i = 0; i < 16; i++)
+{
+    Console.ForegroundColor = (ConsoleColor)i;
+    Console.WriteLine("Merhaba");
+}
+
+
+Console.WriteLine( (ConsoleColor)7); //7 rakamını ConsoleColor cevirr...
+Console.WriteLine( (int)ConsoleColor.Red); //Red in numerik degerini ver...
+
+
+//---------------------------------------------------------------
+
+internal class Rezarvasyon
+    {
+        public int ID { get; set; }
+
+        public Gunler Gun { get; set; }
+
+    }
+
+//Enum olusturma...
+
+using Enum_II;
+
+Console.WriteLine("Merhaba..");
+
+
+Console.WriteLine((int)Gunler.Pazartesi);
+Console.WriteLine((int)Gunler.Persembe);
+Console.WriteLine((int)Gunler.Pazar);
+Console.WriteLine((int)Gunler.Sali);
+
+Console.WriteLine((Gunler)1);
+
+
+Rezarvasyon rez = new Rezarvasyon();
+rez.Gun = Gunler.Pazar;
+
+//enumlar tam sayı tipinde olabilir(8 tane !!!)
+enum Gunler:byte{ Pazartesi, Sali, Carsamba=1, Persembe, Cuma, Cumartesi, Pazar }
