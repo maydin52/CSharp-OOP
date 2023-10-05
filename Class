@@ -1,0 +1,112 @@
+Class Türleri, Tipleri, karşımıza çıkma şekilleri, karakteristikleri
+
+
+Class 
+new leme evet, instance alma	: kalıtımda kullanabilirim evet
+
+
+
+
+/------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Abstract Class 
+new leme hayır , instance alma	: kalıtımda kullanabilirim evet
+soyut class. Ortak özellikleri bir sonraki nesle aktarmak için, kütüphane maksatlı kullanılır. Veya Şekil veya Personel denilince herkesin kafasında farklı bir şey belirecek. 
+10 yıllık çalışan ama yaptığı işi bilmiyorum. Kavramın soyut olmasından dolayı newlenmemesi ramde soyutlaştırılmaması için kullanılır. Türeyen üzerinden Personel prop kullanılır. 
+Örneğin Console gibi. Örneğin Array hem abstract hem static, new lemeden kullanıyoruz. Ata sınıfın abstract olması türeyen sınıfın atası tipine atama yapılmasına mani değil.
+
+Abstract class içinde abstract metodun ve diğerlerinin body si olmaz. Sadece tanımlı olur. Interface lerde olduğu gibi
+Abstract dışındaki classların içinde de abstract metodun body si olmaz.
+
+Abstract metotlar mirasta kullanılacağı class a implement edilmelidir ve burada gövdesi yazılmalıdır ve zorunluluk var. Kullanıcının kullanmasına zorlamak için.
+Polymorfism de zorunluluk yok.
+Demekki sadece virtual ile override kullanılmıyor.
+
+
+
+//OLAMAZ:abstract sınıf...
+//Personel personel = new Personel();
+Personel personel2 = new CEO();
+
+internal abstract class Kisi
+    {
+        public int ID { get; set; }
+        public string Ad { get; set; }
+        public string Soyad { get; set; }
+
+        public static string TumVeriler()
+        {
+            return ""; 
+        }
+    }
+
+internal abstract class Personel:Kisi
+    {
+        public double Maas { get; set; }
+    }
+
+internal sealed class CEO:Personel
+    {
+        public int KardanPayOrani { get; set; }
+    }
+
+
+
+/------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Sealed Class 
+new leme evet, instance alma	: kalıtımda kullanabilirim hayır
+Kaltımda kullanılmaması istendiğinde kullanılır. 
+Hiyerarşik yapının bittiği noktada da miras alınamasın diye türetmeyi sonlandırmak için kullanılır. 
+Mühürlü. Örneğin String sınıfı.
+
+internal sealed class CEO:Personel
+    {
+        public int KardanPayOrani { get; set; }
+    }
+
+    //CEO Sınıfı sealed olarak tanımlandığından kalıtım veremez...
+    //internal class YonetimKuruluBaskani:CEO
+    //{
+    //}
+
+
+
+/------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Static Class 
+new leme hayır, instance alma	: kalıtımda kullanabilirim hayır (Extension metotlarda ve MVC HTML helper yapısında)
+Ram in static bölgesinde tutulması istendiğinde. Sadece bir kopyası olur, ikincisini oluşturamazsınız. 
+Genellikle utiliity sınıflarını (data tutacaksan olmaz) static tanımlarız. 
+Yani iki asker tanımlayamayız. Örneğin Console sınıfı. Bir sınıf içerisine instance member tanımlayamazsın. 
+Bir sınıf statikse içindeki bütün üyeler static (veya const - örneğin, pi) olmak zorundadır. Çünkü İnstance member heapte, class staticte olmaz. 
+Ama bunun tam tersi uygulama olabilir. Yani static olmayan sınıflar içerisinde static member lar kullanılabilir. 
+Neyi nerede arayacağımızı bilmeliyiz. Console.WriteLine gibi kullanılır.
+
+//Static sınıflar doğrudan Sınıfın adı ile birlikte kullanılır...
+// Console.WriteLine();
+
+//Bir sınıf static olarak tanımlanmışsa; içerisindeki tum uyeler static olmak zorunda(veya const)
+    //Static olmayan sınıflarda ise static uyeler olabilir...
+    internal static class PersonelIslemleri
+    {
+        public static void GirisIslemleri(Personel personel)
+        { 
+        }
+        public static void CikisIslemleri(Personel personel)
+        {
+        }
+    }
+
+internal sealed class CEO:Personel
+    {
+        public int KardanPayOrani { get; set; }
+    }
+
+PersonelIslemleri.CikisIslemleri(new CEO());
+
+
+/------------------------------------------------------------------------------------------------------------------------------------------------------
+
+partial 
+bir sınıfın disk üzerinde farklı dosyalarda bulunması
