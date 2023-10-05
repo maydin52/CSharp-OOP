@@ -1,0 +1,316 @@
+Interface
+Nedir?
+USB arayüzü olarak geçer
+soğutucu, hdd, hoparlör, printer, klavye, fare vs
+Interfacelerin 10-15 yerde kullanım yeri var.
+Mutfakta maydanoz gibi
+Interface ler implement edilir.
+Asıl anlamı bağlantı noktası ama çeviri arayüz olarak çevrildiği için yanlış anlaşılıyor
+Mülakatta arayüz olarak söyle ama sonrasında bu şekilde anlat bağlantı noktası, sözleşme (contractor) vs
+hooking : kanca atma
+
+Neden İhtiyaç Var?
+1-Bağlantı Noktası
+Bir evde on tane şarj cihazı vardı. İnce uçlu şarj cihazı arardık?
+Standart olmazsa anlaşılamıyor. USB olmasaydı her biri için pc üstünde farklı port olacaktı.
+USB ile bir standart geliştirilmiş.
+USB cihazın kendisiyle ilgilenmiyor. Interface de ilgilenmez. Bağlantı noktasıyla ilgilenir.
+2-Sözleşme
+wcf te servis yazmak için ilk yapılacak interface idi. Contractor. En güzel örnek.
+Bir interface de ne varsa kabul edeceği sınıf içindekileri kabul etmek zorunda. Sözleşme gibi zorunluluk.
+Franchising örneği. Onunla çalışacaksan onunla bir sözleşme yapıyorsun ve kafana göre dükkanını tasarlayamazsın vs.
+Kiminle çalışacağınla değil, kuralla ilgileniyor.
+
+Nerelerde Kullanlır?
+C# ta çoklu kalıtım yok. Çünkü Diamond problemi var. Bu eksikliği interface kullanarak kapatıyoruz.
+Sınıflara yetenek kazandırmak için kullanıyoruz. Standart interface lerin %70 inin sonu able ile bitiyor.
+Kalıtımdan gelen hiyerarşik yapıyı kırmak veya esnetmek için kullanılır. Tepeden köke giden bir ağaç gibi.
+Plug-in türü uygulama yazılacaksa kullanılır. Yazılımda plug-in orijinal kodu değiştirmeden asıl exe dosyaya dokunmadan. Ayrı dll lerde.
+Asenkron uygulama yazılacaksa.
+Multi thread uygulama yazılacaksa.
+Framework uyumlu uygulama yazabilmek için.
+
+GTA da binlerce nesne var. Kuş, otomobil, uçak, değişik canlılar ve nesneler var.
+Bunun hiyeraraşik yapısını nasıl kuruyoruz.
+Helikopter uçuyor ama kuşta uçuyor. 
+
+Mafya oyunlarında peşine polis takılırsa ne yaparsın. 
+Çoğunluk kaçarım diyor ama o tür oyunlarda genellikle araç boyahane var. Buradan atlatıyorsunuz.
+Önemli olan yakalanmadan boyahaneye ulaşabilmek.
+Boyahaneye normal araba girebiliyor ama helikopter, tank, bisiklet, limuzin giremiyor.
+Tek tek manuel yazarak ekleyebilirsin ama yarın eklenti paketi geldi, scooter geldi ve boyanmayacak.
+If nesne IBoyanabilir taşıyor mu yani implement edilmişmi desem yarın scooter getirdiğimde orijinal kodu değiştirmeme gerek yok.
+
+Hiyararşik bağımlılığa takılmadık.
+
+Üzüm modeli hocanın teorisi. Öyle bir üzüm salkımı ki herhangi bir noktasından tuttuğunuzda değiştirebilirsiniz.
+Uçabilen nesneleri getir desek IUcabilir filtre
+
+Oyun oynarken programlama mantığını da düşünmek gerek.
+
+Base class hayvan 
+Karabatak uçabilir yürüyebilir dalabilir yüzebilir.
+Devekuşu uçamaz, yürüyebilir, dalamaz, yüzemez.
+Yarın genişleme olursa tek tek hayvanları eklemek gerekecek.
+
+Temel Metotlar; Ekle, Sil, Güncelle, Oku, Bul
+
+
+Nasıl Kullanılır?
+Adları I ile başlamak zorundadır.
+Interface içinde tanımlı olan yapıların gövdeleri olmaz. Olduğu durumda sadece o interface için geçerlidir. Gövde içindekiyle ilgilenmiyor yani.
+İnterface ler implement edilir yani uygulanır.
+Interface ler veya class lar birden fazla interface i implement edebilir.
+Interface içinde değişken tanımlanamaz.
+Interface ler dönüş tipi olarak ta kullanılabilir.
+
+
+
+Foreach kullanım yerleri;
+En farklı döngüdür.
+Koleksiyonlarda çalışır.
+IEnumearable interface ini uygulamış class lar üzerinde çalışır. Mülakat!!
+Sadece birer birer ilerler.
+iterasyon değişkeni sadece okunabilirdir. Ienumerator içinde sadece get var çünkü..
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Arayuzler(Interfaces)
+
+
+//*** I[Arayuz_Adi]
+//NSA: Arayuz icerisinde tanımlı olan yapıların govdeleri olmaz....
+//Olduğu durumlarda ise sadece o arayuz için geçerlidir...
+
+//*** Arayuzler Implement(Uygulanır...) edilir...
+//*** Arayuzler veya sınıflar birden fazla arayuzu implement edebilir...
+
+//Metotta parametre olarak interface girilecekse o interface i implemente eden class ın girilmesi gerekir. Bkz Örnek 2.
+
+//--------------------------------------------------------------------------------
+
+// Örnek 1:
+
+// Interface Tanımlama
+
+internal interface IArayuz
+    {
+        string Name { get; set; }
+
+        void Islem();
+    }
+
+
+internal interface IArayuz2
+    {
+        int Islem2();
+    }
+
+// Temel Kullanımlardan Örnekler;
+
+internal class Deneme : IArayuz,IArayuz2
+    {
+        public string Name { get ; set ; }
+
+        public void Islem()
+        {
+            
+        }
+
+        public int Islem2()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+//--------------------------------------------------------------------------------
+
+// Örnek 2:
+
+internal interface IBoyanabilir
+    {
+    }
+
+internal class BMW:IBoyanabilir
+    {
+    }
+
+internal class BMX
+    {
+    }
+
+internal class Ferrari:IBoyanabilir
+    {
+    }
+
+
+Ferrari ferrari = new Ferrari();
+BMW bmw = new BMW();
+BMX bmx=    new BMX();
+
+// Interface metodun parametre tipi olarak ta kullanılabilir.
+
+void Boya(IBoyanabilir arac)
+{ 
+ 
+}
+
+Boya(ferrari);
+Boya(bmw);
+
+// BMX classına implement edilmediği için hata verir.
+
+//Boya(bmx);
+
+//--------------------------------------------------------------------------------
+
+// Örnek 3:
+
+internal interface ICRUD
+    {
+        void Ekle();
+        void Sil();
+        void Guncelle();
+
+        ArrayList Tumu();
+
+        object Bul();
+    }
+
+// DİKKAT : : ICRUD yazdığınızda altını çizer. ICRUD interface içindeki tüm yapıların miras alan class a implement edilmesi gerekir. 
+// Bunun için CTRL+. ve gelen seçeneklerden implement seçeneği tıklandığında aşağıdaki gibi otomatik gelir. Metot body leri gerektiği şekilde revize edilmelidir.
+
+internal class CSV_Dosya : ICRUD
+    {
+        public object Bul()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Ekle()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Guncelle()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Sil()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ArrayList Tumu()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+//--------------------------------------------------------------------------------
+
+// Örnek 4:
+
+internal interface ICreateReadUpdateDelete<T> 
+    {
+        void Ekle(T entity);
+        void Sil(int id);
+        void Guncelle(T entity);
+        List<T> Tumu();
+
+        T Bul(int id);
+    }
+
+// DİKKAT : : ICreateReadUpdateDelete yazdığınızda altını çizer. 
+// Ayrıca Generic <> ifadenin içine tip girilmesi gerekir.
+// ICreateReadUpdateDelete interface içindeki tüm yapıların miras alan class a implement edilmesi gerekir. 
+// Bunun için CTRL+. ve gelen seçeneklerden implement seçeneği tıklandığında aşağıdaki gibi Generic tiplerde dahil otomatik gelir. Metot body leri gerektiği şekilde revize edilmelidir.
+
+internal class Musteri
+    {
+    }
+
+internal class MusteriManager : ICreateReadUpdateDelete<Musteri>
+    {
+        public Musteri Bul(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Ekle(Musteri entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Guncelle(Musteri entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Sil(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Musteri> Tumu()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+//--------------------------------------------------------------------------------
+
+// Örnek 5:
+
+ArrayList liste1 = new ArrayList(){"Istanbul","Ankara" };
+
+string[] isimler = { "Cevdet", "Dursun" };
+int[] rakamlar = { 44, 56, 77 };
+
+liste1.AddRange(rakamlar);
+liste1.AddRange(isimler);
+
+// liste1.AddRange(  yazığında ICollection c parametresi istiyor. 
+// ArrayList e hem string hem de int tipinde yani farklı tiplerde veri ekleyebilmemizin sebebi; Icollection arayüzünü implemente eden herşeyin gelebilmesi.
+// Gönderilecek argümanın o Interface implemente etmiş olması yeterli. Ne olduğuyla ilgilenmiyor!
+// // ICollection üzerinde go to defiinition yaptığımızda;     public interface ICollection : IEnumerable
+
+//--------------------------------------------------------------------------------
+
+// Örnek 6:
+
+string[] urunler = { "Defter", "Pergel", "Buzdolabi", "TV" };
+foreach (string urun in urunler)
+    Console.WriteLine(urun);
+
+
+List<string> products = new List<string>() { "Defter", "Pergel", "Buzdolabi", "TV" };
+foreach (string urun in products)
+    Console.WriteLine(urun);
+    
+
+// Yukarıdaki iki şekilde çıktı alabilirken aşağıdaki şekilde çıktı alamamıştık.
+// foreach () içindeki depo hata verdi : Bu tip GetEnumerator içermiyor ...
+// Foreach döngüsü içerisindeki IEnumerable interface i içerisindeki IEnumerator dönüş tipli GetEnumerator() metodu ile class içindeki string dizisini return edebildik.
+
+
+// Classı revize edilen kod;
+
+Depo depo = new Depo ();
+foreach (string urun in depo)
+    Console.WriteLine(urun);
+
+
+// Yorum satırına alınan yerler eklenince sorun düzeldi.    
+
+public class Depo //:IEnumerable
+    {
+        string[] _urunler = { "Defter", "Pergel", "Buzdolabi", "TV" };
+        //public IEnumerator GetEnumerator()
+        //{
+        //    return _urunler.GetEnumerator();
+        //}
+    }
+
+//--------------------------------------------------------------------------------
