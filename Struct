@@ -1,0 +1,36 @@
+Struct
+Nedir?
+15 öntanımlı tip var. Bu ön tanımlı değer tipli değişkenler struct tır.
+değer tipli, referans tipli
+Değer tipli tüm değişkenler struct tur.
+Değer tipliler stack bölgesinde ramde
+Bizde istersek kendi değer tipimizi stuctımızı oluşturup ramde stackte tutabiliriz.
+Urun referans tipliydi heapte tutuluyordu.
+16 byte tan büyük verileri stack bölgesinin yapısının bozulacağından ve performansı olumsuz etkileyeceğinden struct olarak kullanmamalıyız. Class olarak yazabilirsin. 16 byte 4 int e karşılık gelir.
+Struct lara da interface uygulanabilir.
+Microsoft neden int class yapmadı da struct yaptı. Stackta tutulması için. Stack bölgesinin karakteristik özelliği daha hızlı oluşu. Değer tipli olanların boyutları önceden belli. Class olarak tanımlasaydı yavaş çalışırdı.
+
+
+//Structs => 
+//*** COK ONEMLİ
+//***MS: 16 byte dan buyuk verileri Struct olarak kullanmayınız!!!! 
+//*** Buyuk olanları Class olarak yaz...
+
+Point p1 = new Point(25,55);
+
+
+string isim = null;
+int? sayi = null;
+
+
+
+internal struct Point {
+
+    public Point(int x,int y)
+    {
+        X = x;
+        Y= y;
+    }
+    public int X { get; set; }
+    public int Y { get; set; }
+}
