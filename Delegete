@@ -1,0 +1,20 @@
+
+
+
+Delegeler metot taşımak için kullanılır.
+Delege her metodu taşımaz.
+Bir delege metodum imzası + return type ı aynı olan metotları taşır.
+Metodun ismi önemli değil. Anonim metod yani ismi olmayan metot. Lambda ifadesi x - parametre gelecek, return type ı x olacak demek
+
+Sembollerine dikkat. Çanta sembolü. Eskiden çanta içinde metot sembolü vardı.
+
+En son delegeler en son ikiye indirgendi ama başka delegeler de var geçmişten gelen.
+Geriye değer döndürüyorsa Function, döndürmüyorsa Action
+
+C# ta delege kullanmıyorsan %70 ini kullanmıyorsun.
+
+Koleksiyon olarak davranıyor.
+
+Photoshop ta binlerce efekt var. 
+Kullanıcı gözlerden bir veya birkaçını seçtiğinde kullanıcının hangi efektleri seçtiğini (her efekt bir metot).
+
