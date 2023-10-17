@@ -50,6 +50,8 @@ Birine Function, diğerine Action.
 Yani Function geriye değer döndürüyorsa Function, geriye değer döndürmüyorsa Action.
 Son zamanlarda yazılan kütüphanelerin çoğunda bunları görürsünüz.
 
+Neyi neden kullandığımızı bilmeliyiz. Deneme yanılmayla başkaları arasından sıyrılamayız.
+
 ------------------------------------------------------------------------------------------
 1. Windows form projesi açtık.
 
@@ -198,10 +200,14 @@ Yeni konsol uygulaması açtık.
 
 internal class Program
     {
+       
         public static bool CiftSayiMi(int sayi)
         {
-            return sayi % 2 == 0;
+                // şart ifadeleri değer true/false değer döndürür. Bu sebepten if e gerek yok.
+                return sayi % 2 == 0;
         }
+
+
 
         static void Yazdir(List<int> sayilar)
         {
@@ -213,11 +219,19 @@ internal class Program
             }
             Console.WriteLine();
         }
+
+
+
+
+
         static void Main(string[] args)
         {
+            
+
             List<int> sayilar = new List<int>() { 34, 556, 77, 111, 879, 33, 22, 8, 3 };
             //Cift sayiları bulunuz....
-            
+
+
             //1.Yontem(Donguler)
 
             foreach (int sayi in sayilar)
@@ -227,19 +241,34 @@ internal class Program
             }
             Console.WriteLine();
 
+
+            //DİKKAT!!! DİĞER DELEGELERDEN ÖRNEKLER
+            //Find bir değer döndürüyor, FinAll koleksiyon döndürüyor. FindAll( yazdığında dönüş tipindeki int ve liste ve ayrıca argümandaki Predicate<int> match  dikkat! 
+            //Bir metodun parametresi delege olabilir. Ne yapacağız, kullanmayı bileceğiz. 
+            //Predicate sembolüne bak, çanta yani delege. Pre yazıp imzaya dikkat! T dışarıdan gelecek diyor. Return type bool parametresi int sayi
+            //Eğer EventHandler ı kullanacaksam dönüş tipi void olmalı. Predicate i kullanacaksam bool olmalı. 
+
+
             //Soruyu şu yontemle cozunuz?(FindAll())
             //2.Yontem: Metod yaz...
 
             Predicate<int> prd = new Predicate<int>(CiftSayiMi);
 
-           Yazdir( sayilar.FindAll(prd));
+           Yazdir(sayilar.FindAll(prd));
+
+
+
 
             //3. Yontem 
             //Acikca predicate tanımlanması yapılmadı...
+            // DİKKAT!!! RETURN TYPE I VE PARAMETRESİ AYNIYSA KENDİSİ ÇEVİRİYOR. DELEGE TANIMLAYA GEREK YOK HER DEFASINDA.
             Yazdir(sayilar.FindAll(CiftSayiMi));
 
-           
+
+
+            //4. Yöntem
             //Anonymous Method
+            // = den sonraki bölüme dikkat! Metod tanımladık. Metod ismi yok. örneğin; delegate (double sayi) olsaydı taşıyamam diyecekti. 
 
             Predicate<int> prd2 =delegate (int sayi)
             {
@@ -249,18 +278,25 @@ internal class Program
             Console.WriteLine(sayilar.FindAll(prd2).Count().ToString());
             Yazdir(sayilar.FindAll(prd2));
 
-            //4.Yontem:Metod yazmadan...
+            //4.Yontem:Metod yazmadan...        //DİKKAT!!! METDUN PARAMETRESİNE METOD YAZDIK.
             Yazdir(sayilar.FindAll(delegate(int s) { return s % 2 == 0; }));
 
-            //5.Lambda Expression =>
-            Yazdir(sayilar.FindAll(s=>s%2==0));
+            //5.Lambda Expression =>        //ADAM ZATEN NEYİN GELECEĞİNİ GENERIC OLARAK BİLİYOR. NİYE UZUN YAZAYIM?
+            Yazdir(sayilar.FindAll(s=>s%2==0));        //BÜTÜN OLAYI LAMBDA YAPIYOR. ARKA PLANDA KODU YAZDI. LAMBDA EXP GÖRDÜĞÜNÜZ HER YERDE SİSTEM ARKADA METOT YAZIYOR. 
             Yazdir(sayilar.FindAll(s => s % 2 == 1));
 
-            
+            //sayilar.Select( yazdığımızda parametrelerde imzada geçen (Func<int, TResult> selector) daki Func delege, ilk parametre int gelecek, TResult Dönecek.
+
+            //ildasm toolu üzerinden;
+                //vs klasörü altından developer comand - il dasm - open file klasöre erişip içine sürükledik.
+                //biz lambda exp kullanıyoruz ama kendisi gerekli kodları arkada yazdı, gördük.
+
         }
     }
 
+-----------------------------
 
+.NET 8 ile gelen yenilikleri konuştuk, listeyi gösterdi.
 
 
 
