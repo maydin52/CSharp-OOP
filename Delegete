@@ -1,8 +1,14 @@
 
-
+Lambda expression u her yere yazamazsınız. Delege istemesi gerekiyor.
 
 Delegeler metot taşımak için kullanılır.
-Delege her metodu taşımaz.
+Delege her metodu taşımaz. 
+Bir delege metodun imzası + return type ı aynı olan metotları taşır.
+
+Func<>
+Action<>
+Sembolleri çanta. Eski sembolü çanta içindeki metot simgesi
+
 Bir delege metodum imzası + return type ı aynı olan metotları taşır.
 Metodun ismi önemli değil. Anonim metod yani ismi olmayan metot. Lambda ifadesi x - parametre gelecek, return type ı x olacak demek
 
@@ -11,10 +17,250 @@ Sembollerine dikkat. Çanta sembolü. Eskiden çanta içinde metot sembolü vard
 En son delegeler en son ikiye indirgendi ama başka delegeler de var geçmişten gelen.
 Geriye değer döndürüyorsa Function, döndürmüyorsa Action
 
-C# ta delege kullanmıyorsan %70 ini kullanmıyorsun.
+Delege çoğu dilde var.
+JS te gizli özne gibi. Siz yazmıyorsunuz ama arka planda kullanıyor.
+C# ta delege kullanmayı bilmiyorsanız c# ın ancak %50 ini kullanabilirsin. 10 yıl önce kitapta yazan. şimdi %70. Yani elinin altında ferrari var birinci vitesten yukarı çıkamıyorsun.
+Yüzlerce satırda yazacağınız kodu iki satırda yazabiliyorsunuz. Üçüncü projede örnekleri var.
+Çok önemli bir konu. 
 
-Koleksiyon olarak davranıyor.
+Bir delege var. içinde liste var. Yani koleksiyon olarak davranıyor. Add diyorsunuz ekliyorsunuz.
+C ve C++ ta delege konusu Functional Pointer olarak geçiyor.
 
-Photoshop ta binlerce efekt var. 
-Kullanıcı gözlerden bir veya birkaçını seçtiğinde kullanıcının hangi efektleri seçtiğini (her efekt bir metot).
+ms ta delege çekilse windows diye bir işletim sistemi olmaz.
+Photoshop ta veya Fireworks ta binlerce efekt var. 
+Kullanıcı gözlerden bir veya birkaçını seçtiğinde kullanıcının seçtiği efektleri uygular (her efekt bir metot).
+Kaç efekt varsa o kadar şart ifadesi yazmak gerekiyor veya sonradan adam eklentiler yapabiliyor.
+Delege beni bir standarda zorluyor. Return type ı ve parametresi aynı olacak ama ismi önemli değil.
+Burada yapılan şey sadece delegeye bağlamak. Aslında delege uygulama delegeyle çalışıyor. 
+Interface de zorluyor evet ama delege hem zorluyor hem de metodun kendisini taşıyor. Yani ben o metodu istediğim anda kullanabiliyorum.
+Interface de çağıramazsın, ramde onun bir karşılığı yok. 
+
+Ramde binlerce metodu delegeye bağlıyorsunuz.
+Arada bir katman oluşturuyor aslında uygulama delegeyle birlikte.
+
+Okulda örneğin;
+Temsilciyi kaldır. Müdür bir duyuru yapacağı zaman tek tek gidip sınıflara duyuruyu taşıyacak. 
+Ama temsilci o aldığı duyuruyu bütün sınıflara duyurabilir. Bütün okul bir saat içinde haberdar.
+
+
+Multicast delege araştır.
+
+Önceden sistemde binlerce delege vardı ki hala erişilebilir var ama sonradan ms pardon bu kadar delege yazmaya gerek yokmuş, sadece iki delegeyle bütün işi halledebiliyormuşuz dedi.
+Birine Function, diğerine Action. 
+Yani Function geriye değer döndürüyorsa Function, geriye değer döndürmüyorsa Action.
+Son zamanlarda yazılan kütüphanelerin çoğunda bunları görürsünüz.
+
+------------------------------------------------------------------------------------------
+1. Windows form projesi açtık.
+
+Buton koyduk.
+
+Form classı içine;
+
+private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Merhaba Windows....");
+        }
+
+
+Delege bu işin neresinde?
+Daha önce mesela bir şeyi sildiğimizde hata veriyordu. Form1.Designer.cs içinden siliyorduk.
+
+button1.Click += button1_Click;
+Burada click e diyoruz ki buton.click i ekle diyoruz.
+Yani delegenin içerisine metodu ekliyor.
+
+Bu bir event.
+
+
+Buton1 e tıkladığımızda bağlı olan eventi tetikliyor.
+Ama eventte bir delegeye bağlı.
++= sildiğimizde birşey yapmayacak.
+
+Program muhatap olarak delegeyi alıyor. Hangi metodun bağlandığıyla ilgilenmiyor.
+
+Button classının go to defilition değimizde aşağıdakini görüyoruz. EventHandler dediğimiz şey bir delege.
+
+public new event EventHandler DoubleClick
+{
+  add => base.DoubleClick += value;
+  remove => base.DoubleClick += value;
+}
+
+EventHandler go to definition 
+public delegate void EventHandler(object? sender, EventArgs e);
+
+Event oluştrabilmek için delege konusunu bilmek gerekiyor.
+delege yoksa eventte yok.
+Konsolda işlemi sırayla yapıyoruz. 
+
+Photoshop açılırken neden uzun sürüyor?
+Tetiklendiğinde hemen getiriyor.
+A metodu ramde adresini tutuyor. Gel demeniz lazım.
+
+Delege kullandıkça sistem biraz yavaşlar ama daha az kod yazarız ama bu yavaşlık çok değil. Rami şişirmiyor ama biraz yavaşlatıyor. 
+Metodu native kendisini çağırmak daha hızlı fakat bazen öyle senaryolar oluyor ki işletim sisteminde olduğu gibi mecbur kullanmak zoundayız. 
+Mecbur olunca yavaşlığında olmuyoruz.
+
+EventaHandler a bağlamak esneklik kazandırıyor. Metod isimlerinden kurtuluyorum. 
+Öğrencinin ismi Ahmet, Mehmet miş bilmem. Ben derdimi temsilciye anlatıyorum. Muhatabım temsilci.
+Temsilci de kimse onunla muhatap.
+
+---
+
+Şimdi bir tane listbox atıyoruz.
+Şimdi bir tane texbox atıyoruz.
+Şimdi bir tane radio button atıyoruz.
+Şimdi bir tane combobox atıyoruz.
+ve hepsi çin çift tıklayıp metotlarını oluşturuyoruz.
+Oluşan metotlarda hepsinin parametreleri ve dönüş tipleri aynı.
+Çünkü ms eventlerinin çoğu aynı delege tarafından kullanılır.
+
+Bir delege şunu sağlıyor;
+Metodun ismi önemli değil.
+Biz delege kullanarak anynmous metod yani ismi olmadan metot yazıyoruz.
+Bir yerde lambda expression görüyorsan ananim metot var demek.
+
+ilk x : x diye bir parametre gelecek. Generic içindekine bakıyor.
+oktan sonraki x : return type ı x olacak.
+yani gelen x çıkan x demek.
+
+--------------------------------------
+
+Yeni konsol uygulaması açtık.
+
+internal class Program
+    {
+
+        static int KareAl(int sayi)
+        { 
+            return sayi*sayi; 
+        }
+
+        static void Merhaba()
+        {
+            Console.WriteLine("Merhaba");
+        }
+        static void Hello()
+        {
+            Console.WriteLine("Hello...");
+        }
+
+        static void Test()
+        {
+            Console.WriteLine("Test 123");
+        }
+
+
+
+
+        //DELEGE TANIMLAMA
+        //Delege her metodu taşımaz demiştik. Return Type i void ama parametresi yok.
+
+        public delegate void Temsilci();
+
+
+
+        static void Main(string[] args)
+        {
+           
+            //UYARLAMA
+
+            Temsilci t = new Temsilci(Merhaba);
+            t += Hello;
+            t += Test;
+            t += Hello;
+            //t += KareAl(3); //Tasımaz... Neden? Imza + Return type farklı olmalı...
+
+
+
+            //TEMSİLCİYİ ÇAĞIRMA - TAŞIDIĞI METOTLAR ÇALIŞTI. ARTIK ÇAĞIRIRKEN METOT İSİMLERİYLE İLGİLENMİYORUM.
+
+            t();
+
+
+
+            Console.WriteLine("----------");
+
+
+            //Multi-Cast Delagates(Bir delegate birden fazla metod taşırsa Multi-Cast delegates diye isimlendirilir...)
+            foreach (var d in t.GetInvocationList())      // GetInvocationList() - BU METOT GERİYE DELEGE DİZİSİ DÖNDÜRÜYOR. 
+            {
+                if(d.Method.Name =="Test")
+                d.DynamicInvoke();
+            }
+        }
+    }
+
+-------------------------------------
+
+Yeni konsol uygulaması açtık.
+
+internal class Program
+    {
+        public static bool CiftSayiMi(int sayi)
+        {
+            return sayi % 2 == 0;
+        }
+
+        static void Yazdir(List<int> sayilar)
+        {
+          
+            foreach (int sayi in sayilar)
+            {
+                
+                    Console.Write(sayi + " ");
+            }
+            Console.WriteLine();
+        }
+        static void Main(string[] args)
+        {
+            List<int> sayilar = new List<int>() { 34, 556, 77, 111, 879, 33, 22, 8, 3 };
+            //Cift sayiları bulunuz....
+            
+            //1.Yontem(Donguler)
+
+            foreach (int sayi in sayilar)
+            {
+                if(sayi % 2==0)
+                    Console.Write(sayi + " ");
+            }
+            Console.WriteLine();
+
+            //Soruyu şu yontemle cozunuz?(FindAll())
+            //2.Yontem: Metod yaz...
+
+            Predicate<int> prd = new Predicate<int>(CiftSayiMi);
+
+           Yazdir( sayilar.FindAll(prd));
+
+            //3. Yontem 
+            //Acikca predicate tanımlanması yapılmadı...
+            Yazdir(sayilar.FindAll(CiftSayiMi));
+
+           
+            //Anonymous Method
+
+            Predicate<int> prd2 =delegate (int sayi)
+            {
+                return (sayi % 2 == 1);
+            };
+
+            Console.WriteLine(sayilar.FindAll(prd2).Count().ToString());
+            Yazdir(sayilar.FindAll(prd2));
+
+            //4.Yontem:Metod yazmadan...
+            Yazdir(sayilar.FindAll(delegate(int s) { return s % 2 == 0; }));
+
+            //5.Lambda Expression =>
+            Yazdir(sayilar.FindAll(s=>s%2==0));
+            Yazdir(sayilar.FindAll(s => s % 2 == 1));
+
+            
+        }
+    }
+
+
+
+
 
