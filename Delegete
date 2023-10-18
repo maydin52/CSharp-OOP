@@ -294,9 +294,39 @@ internal class Program
         }
     }
 
+----------------------------
+
+        //KategoriID si  tek olan  kategorileri getir?
+        //Yazarın adında a harfi olanları getir?
+        public List<Category> FindCategories()
+        {
+
+            //return _context.Categories.Find(id);
+            return _context.Categories.Where(x=>x.CategoryID % 2==1).ToList();
+        }
+
+        public List<Author> FindAuthors(string word)
+        {
+
+            //return _context.Categories.Find(id);
+            return _context.Authors.Where(x => x.FirstName.Contains(word)).ToList();
+        }
+
+        public List<TEntity> Finds<TEntity>(Func<TEntity,bool> where) where TEntity : class 
+        {
+            DbSet<TEntity> set = _context.Set<TEntity>();
+
+            return _context.Set<TEntity>().Where(where).ToList();
+        }
+
+
+
 -----------------------------
 
+
 .NET 8 ile gelen yenilikleri konuştuk, listeyi gösterdi.
+
+
 
 
 
