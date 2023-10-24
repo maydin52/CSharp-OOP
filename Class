@@ -15,8 +15,8 @@ soyut class. Ortak özellikleri bir sonraki nesle aktarmak için, kütüphane ma
 10 yıllık çalışan ama yaptığı işi bilmiyorum. Kavramın soyut olmasından dolayı newlenmemesi ramde soyutlaştırılmaması için kullanılır. Türeyen üzerinden Personel prop kullanılır. 
 Örneğin Console gibi. Örneğin Array hem abstract hem static, new lemeden kullanıyoruz. Ata sınıfın abstract olması türeyen sınıfın atası tipine atama yapılmasına mani değil.
 
-Abstract class içinde abstract metodun ve diğerlerinin body si olmaz. Sadece tanımlı olur. Interface lerde olduğu gibi
-Abstract dışındaki classların içinde de abstract metodun body si olmaz.
+Abstract class içinde abstract metodun ve diğerlerinin gövdesi olmaz. Sadece imzası olur. Interface lerde olduğu gibi
+Abstract dışındaki classların içinde de abstract metodun gövdesi olmaz.
 
 Abstract metotlar mirasta kullanılacağı class a implement edilmelidir ve burada gövdesi yazılmalıdır ve zorunluluk var. Kullanıcının kullanmasına zorlamak için.
 Polymorfism de zorunluluk yok.
