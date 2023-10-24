@@ -26,6 +26,8 @@ Demekki sadece virtual ile override kullanılmıyor.
 
 //OLAMAZ:abstract sınıf...
 //Personel personel = new Personel();
+
+
 Personel personel2 = new CEO();
 
 internal abstract class Kisi
